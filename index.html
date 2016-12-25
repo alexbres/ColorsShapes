@@ -35,21 +35,14 @@ Reactangle.prototype.draw = function() {
 	this.context.fillRect(this.x, this.y, this.height, this.width);
 }
 
-function draw_b() {
-  var b_canvas = document.getElementById("b");
-  var b_context = b_canvas.getContext("2d");
-  b_context.fillRect(50, 25, 150, 100);
-}
-
 function run() {
-	var b_canvas = document.getElementById("b");
-	var cntx = b_canvas.getContext("2d");
+	var canvas = document.getElementById("b");
+	var cntx = canvas.getContext("2d");
 	var p = new Reactangle(cntx, 10,10, 30, 30, 'red') ;
 	p.draw();
 	p.move(50, 10);
 	p.move(90, 10);
 	p.move(90, 50);
-	//draw_b() ;
 }
 
 
