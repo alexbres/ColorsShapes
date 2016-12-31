@@ -1,0 +1,5 @@
+1-implement draw frame
+ (draw is called via timer n times in second)
+2-handlers for kursor key press
+3-clear canvas for ech frame
+5-move shape with cursor
