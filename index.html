@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //Shape base calss
 function Shape(context, color, x, y) {
 	this.context = context;
-	if (typeof this.context != 'undefined') {
-		this.context.fillStyle = color;
-	}
+	this.color = color;
 	this.x = x;
 	this.y = y;
 }
@@ -35,6 +33,7 @@ function Reactangle(context, color, x, y, width, height) {
 Reactangle.prototype = new Shape();
 
 Reactangle.prototype.draw = function() {
+	this.context.fillStyle = this.color;
 	this.context.fillRect(this.x, this.y, this.height, this.width);
 }
 
@@ -47,6 +46,7 @@ function Circle(context, color, x, y, radius) {
 Circle.prototype = new Shape();
 
 Circle.prototype.draw = function() {
+	this.context.fillStyle = this.color;
 	this.context.beginPath();
 	this.context.arc(this.x, this.y, this.radius, 0, Math.PI*2);
 	this.context.fill();
