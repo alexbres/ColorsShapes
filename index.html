@@ -5,8 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
  run();
 });
 
-//Shape
-function Shape() {
+//Shape base calss
+function Shape(context, color, x, y) {
+	this.context = context;
+	if (typeof this.context != 'undefined') {
+		this.context.fillStyle = color;
+	}
+	this.x = x;
+	this.y = y;
 }
 
 Shape.prototype.move = function(x, y) {
@@ -18,13 +24,10 @@ Shape.prototype.move = function(x, y) {
 Shape.prototype.draw = function() {
 }
 
-//Reactangle
-function Reactangle(context, x, y, width, height, color) {	
-	this.context = context;
-	this.x = x;
-	this.y = y;
+//Reactangle 
+function Reactangle(context, color, x, y, width, height) {		
+	this.constructor(context, color, x, y);
 	
-	this.context.fillStyle = color;
 	this.height = height;
 	this.width = width;
 }
@@ -35,14 +38,43 @@ Reactangle.prototype.draw = function() {
 	this.context.fillRect(this.x, this.y, this.height, this.width);
 }
 
+// Circle
+function Circle(context, color, x, y, radius) {
+	this.constructor(context, color, x, y);
+	this.radius = radius;
+}
+
+Circle.prototype = new Shape();
+
+Circle.prototype.draw = function() {
+	this.context.beginPath();
+	this.context.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+	this.context.fill();
+	this.context.closePath();
+}
+
+
+
 function run() {
 	var canvas = document.getElementById("b");
-	var cntx = canvas.getContext("2d");
-	var p = new Reactangle(cntx, 10,10, 30, 30, 'red') ;
+	var ctx = canvas.getContext("2d");
+	
+	var c = new Circle(ctx, 'red', 10, 10, 15) ;
+	var p = new Reactangle(ctx, 'blue', 10, 10, 30, 30) ;
+	c.draw();
+	c.move(50, 10);
+	c.move(90, 10);
+	c.move(90, 50);
+	
 	p.draw();
 	p.move(50, 10);
 	p.move(90, 10);
 	p.move(90, 50);
+	// ctx.fillStyle = 'red';
+	// ctx.beginPath();
+	// ctx.arc(10, 10, 10, 0, Math.PI*2);
+	// ctx.fill();
+	// ctx.closePath();
 }
 
 
