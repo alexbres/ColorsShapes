@@ -8,31 +8,39 @@ const Direction = {
 	Right: 3,
 }
 
+const delta = 2;
+
 var direction = Direction.Right;	
+var x = 10;
+var y = 10;
+var head;
+var canvas;
+var ctx;
+var intervalID;
 	
 document.addEventListener('DOMContentLoaded', function() {
- run();
+	run();
 });
 
 document.addEventListener("keydown", keyDownHandler, false);
 
-
-
 function keyDownHandler(e) {
-
-    if(e.keyCode == 39) {
-        direction = Direction.Right;
-    }
-    else if(e.keyCode == 37) {
-        direction = Direction.Left;
-    }
-	else if(e.keyCode == 40) {
-        direction = Direction.Down;
-    }
-	else if(e.keyCode == 38) {
-        direction = Direction.Up;
-    }
+	switch (e.keyCode){
+		case 39: 
+			direction = Direction.Right;
+			break;
+		case 37: 
+			direction = Direction.Left;
+			break;
+		case 40: 
+			direction = Direction.Down;
+			break;
+		case 38: 
+			direction = Direction.Up;
+			break;
+	}
 }
+
 
 //Shape base calss
 function Shape(context, color, x, y) {
@@ -90,22 +98,52 @@ Circle.prototype.draw = function() {
 	this.context.closePath();
 }
 
-
-
 function run() {
-	var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
-	setInterval(draw, 10);
+	canvas = document.getElementById("canvas");
+	ctx = canvas.getContext("2d");
+	intervalID = setInterval(draw, 20);
 	
-	var p = new Reactangle(ctx, 'blue', 10, 10, 30, 30) ;
-	p.draw();
+	head = new Reactangle(ctx, 'blue', x, y, 20, 20) ;
+	head.draw();
 }
 
+function draw() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	calculatePosition();
+	if (x + head.width > canvas.width
+		|| x < 0
+		|| y < 0
+		|| y + head.height > canvas.height) {
+			gameOver();
+		}
+	head.move(x, y);
+}
 
+function gameOver() {
+	clearInterval(intervalID);
+	ctx.fillText("GAME OVER", canvas.width/2, canvas.height/2);
+
+}
+
+function calculatePosition() {
+	switch (direction) {
+		case Direction.Right:
+			x += delta;
+			break;
+		case Direction.Left:
+			x -= delta;
+			break;
+		case Direction.Up:
+			y -= delta;
+			break;
+		case Direction.Down:
+			y += delta;
+			break;
+	}
+}
 
 </script>
 <body>
-<div style="border: 1px black solid">test</div>
-<canvas id="canvas" width="300" height="225" style="border: 1px black solid"></canvas>
+	<canvas id="canvas" width="600" height="600" style="border: 1px black solid"></canvas>
 </body>
 </html>
