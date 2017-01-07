@@ -8,15 +8,18 @@ const Direction = {
 	Right: 3,
 }
 
-const delta = 2;
+const delta = 20;
+const size = 20;
 
 var direction = Direction.Right;	
-var x = 10;
-var y = 10;
+var x = 10; //head current position
+var y = 10; //head current position
 var head;
 var canvas;
 var ctx;
 var intervalID;
+var track = new Array();
+var tail = new Array();
 	
 document.addEventListener('DOMContentLoaded', function() {
 	run();
@@ -101,28 +104,42 @@ Circle.prototype.draw = function() {
 function run() {
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
-	intervalID = setInterval(draw, 20);
+	intervalID = setInterval(draw, 300);
 	
-	head = new Reactangle(ctx, 'blue', x, y, 20, 20) ;
-	head.draw();
+	head = new Reactangle(ctx, 'blue', x, y, size, size);
+
+	tail.push(new Reactangle(ctx, 'blue', x - size, y, size, size));
+	tail.push(new Reactangle(ctx, 'blue', x - 2*size, y, size, size));
 }
 
 function draw() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	calculatePosition();
-	if (x + head.width > canvas.width
-		|| x < 0
-		|| y < 0
-		|| y + head.height > canvas.height) {
-			gameOver();
-		}
+	
+	if (wallCollision()) {
+		gameOver();
+	}
+
+	//debugger;
 	head.move(x, y);
+	for(var i = 0; i < tail.length; i++) {
+		var pos = track[track.length - (1 + i)];
+		if (typeof pos != 'undefined') {
+			tail[i].move(pos.x, pos.y);		
+		}
+	}
+	track.push({x,y});
 }
 
+function wallCollision() {
+	return x + head.width > canvas.width
+		|| x < 0
+		|| y < 0
+		|| y + head.height > canvas.height;
+}
 function gameOver() {
 	clearInterval(intervalID);
 	ctx.fillText("GAME OVER", canvas.width/2, canvas.height/2);
-
 }
 
 function calculatePosition() {
