@@ -22,15 +22,18 @@ Shape.prototype.move = function(x, y) {
 Shape.prototype.draw = function() {
 }
 
+Shape.prototype.super = Shape;
+
 //Reactangle 
 function Reactangle(context, color, x, y, width, height) {		
-	this.constructor(context, color, x, y);
+	this.super(context, color, x, y);
 	
 	this.height = height;
 	this.width = width;
 }
 
 Reactangle.prototype = new Shape();
+Reactangle.prototype.constructor = Reactangle;
 
 Reactangle.prototype.draw = function() {
 	this.context.fillStyle = this.color;
@@ -39,11 +42,12 @@ Reactangle.prototype.draw = function() {
 
 // Circle
 function Circle(context, color, x, y, radius) {
-	this.constructor(context, color, x, y);
+	this.super(context, color, x, y);
 	this.radius = radius;
 }
 
 Circle.prototype = new Shape();
+Circle.prototype.constructor = Circle;
 
 Circle.prototype.draw = function() {
 	this.context.fillStyle = this.color;
@@ -77,6 +81,12 @@ function run() {
 	c2.move(90, 10);
 	c2.move(90, 60);
 	
+	//TODO: check type of the object
+	if (/*typeof c2 == 'object' &&*/ c2.constructor == Circle) {
+		console.log('c2 is a Circle');
+	} else {
+		console.log('error');
+	}
 }
 
 
