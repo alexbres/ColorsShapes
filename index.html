@@ -20,6 +20,7 @@ var ctx;
 var intervalID;
 var track = new Array();
 var tail = new Array();
+var rabbit;
 	
 document.addEventListener('DOMContentLoaded', function() {
 	run();
@@ -110,17 +111,18 @@ function run() {
 
 	tail.push(new Reactangle(ctx, 'blue', x - size, y, size, size));
 	tail.push(new Reactangle(ctx, 'blue', x - 2*size, y, size, size));
+
+	setNewRabbitPos();
 }
 
 function draw() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	calculatePosition();
+	calculateNewPosition();
 	
 	if (wallCollision()) {
 		gameOver();
 	}
 
-	//debugger;
 	head.move(x, y);
 	for(var i = 0; i < tail.length; i++) {
 		var pos = track[track.length - (1 + i)];
@@ -128,7 +130,18 @@ function draw() {
 			tail[i].move(pos.x, pos.y);		
 		}
 	}
+	drawRabbit();
 	track.push({x,y});
+}
+
+function drawRabbit() {
+	rabbit.draw();
+}
+
+function setNewRabbitPos() {
+	var rabbitX = canvas.width / 2;
+	var rabbitY = canvas.height / 2;
+	rabbit = new Reactangle(ctx, 'red', rabbitX, rabbitY, size, size);
 }
 
 function wallCollision() {
@@ -142,7 +155,7 @@ function gameOver() {
 	ctx.fillText("GAME OVER", canvas.width/2, canvas.height/2);
 }
 
-function calculatePosition() {
+function calculateNewPosition() {
 	switch (direction) {
 		case Direction.Right:
 			x += delta;
