@@ -4,7 +4,12 @@
 +3-clear canvas for ech frame
 +5-move shape with cursor
 
-6-draw rabbits
++6-draw rabbit
 7-rabbits collision
 8-increase tail
+9-random drawing rabbits
 
+JS questions:
+1-can we use several <scripts> block in one page?
+2-move js code to separate file, what should the file be look?
+3-investigate js namespace style code
