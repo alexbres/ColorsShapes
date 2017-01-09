@@ -10,6 +10,8 @@
 9-random drawing rabbits
 
 JS questions:
-1-can we use several <scripts> block in one page?
-2-move js code to separate file, what should the file be look?
++1-can we use several <scripts> block in one page?
+ yes
++2-move js code to separate file, what should the file be look?
+ yes, just like java script
 3-investigate js namespace style code
