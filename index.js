@@ -9,8 +9,8 @@ const delta = 20;
 const size = 20;
 
 var direction = Direction.Right;	
-var x = 10; //head current position
-var y = 10; //head current position
+var x = size; //head current position
+var y = size; //head current position
 var head;
 var canvas;
 var ctx;
@@ -136,8 +136,8 @@ function drawRabbit() {
 }
 
 function setNewRabbitPos() {
-	var rabbitX = canvas.width / 2;
-	var rabbitY = canvas.height / 2;
+	var rabbitX = (canvas.width / size / 2) * size;
+	var rabbitY = (canvas.height / size / 2) * size;
 	rabbit = new Reactangle(ctx, 'red', rabbitX, rabbitY, size, size);
 }
 
