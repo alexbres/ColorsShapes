@@ -5,9 +5,11 @@
 +5-move shape with cursor
 
 +6-draw rabbit
-7-rabbits collision
-8-increase tail
-9-random drawing rabbits
++7-rabbits collision
++8-increase tail
++9-random drawing rabbits
+10-eating tail
+11-display score
 
 JS questions:
 +1-can we use several <scripts> block in one page?

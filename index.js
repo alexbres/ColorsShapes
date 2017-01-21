@@ -121,6 +121,7 @@ function draw() {
 	}
 	if (rabbitCollision()) {
 		setNewRabbitPos();
+		increaseTail();
 	}
 
 	head.move(x, y);
@@ -147,6 +148,9 @@ function setNewRabbitPos() {
 	var rabbitY = getRandomInt(1, canvas.height/size) * size;
 	rabbit.move(rabbitX, rabbitY);
 	
+}
+function increaseTail(){
+	tail.push(new Reactangle(ctx, 'blue', x - (tail.length+1)*size, y, size, size));
 }
 function createRabbit(){
 	var rabbitX = (canvas.width / size / 2) * size;
