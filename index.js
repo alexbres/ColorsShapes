@@ -119,6 +119,9 @@ function draw() {
 	if (wallCollision()) {
 		gameOver();
 	}
+	if (rabbitCollision()) {
+		console.log('eat');
+	}
 
 	head.move(x, y);
 	for(var i = 0; i < tail.length; i++) {
@@ -150,6 +153,9 @@ function wallCollision() {
 function gameOver() {
 	clearInterval(intervalID);
 	ctx.fillText("GAME OVER", canvas.width/2, canvas.height/2);
+}
+function rabbitCollision() {
+	return x == rabbit.x && y == rabbit.y;
 }
 
 function calculateNewPosition() {
