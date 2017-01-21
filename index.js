@@ -109,7 +109,7 @@ function run() {
 	tail.push(new Reactangle(ctx, 'blue', x - size, y, size, size));
 	tail.push(new Reactangle(ctx, 'blue', x - 2*size, y, size, size));
 
-	setNewRabbitPos();
+	createRabbit();
 }
 
 function draw() {
@@ -120,7 +120,7 @@ function draw() {
 		gameOver();
 	}
 	if (rabbitCollision()) {
-		console.log('eat');
+		setNewRabbitPos();
 	}
 
 	head.move(x, y);
@@ -138,7 +138,17 @@ function drawRabbit() {
 	rabbit.draw();
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function setNewRabbitPos() {
+	var rabbitX = getRandomInt(1, canvas.width/size) * size;
+	var rabbitY = getRandomInt(1, canvas.height/size) * size;
+	rabbit.move(rabbitX, rabbitY);
+	
+}
+function createRabbit(){
 	var rabbitX = (canvas.width / size / 2) * size;
 	var rabbitY = (canvas.height / size / 2) * size;
 	rabbit = new Reactangle(ctx, 'red', rabbitX, rabbitY, size, size);
